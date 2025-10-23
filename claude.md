@@ -130,3 +130,97 @@ Three non-traditional strategies documented and ready for manual testing:
 - Items we've deferred but shouldn't forget
 
 **Review frequency**: Weekly during active development, monthly during maintenance
+
+---
+
+## Git Workflow & Best Practices
+
+### Branching Strategy
+- **Work on `main`** for tested, working changes
+- **Use feature branches** only for experimental/risky work
+- Branch naming: `feature/`, `fix/`, `refactor/`, `docs/`, `test/`, `data/`
+
+### Commit Guidelines
+
+**Frequency**: Commit every logical unit of work (~3-5 times per coding session)
+- ✅ After completing a function/class/feature component
+- ✅ When tests are passing
+- ✅ Before switching tasks
+- ✅ End of coding session
+
+**Format**: Conventional Commits
+```
+<type>(<scope>): <description>
+
+<optional body>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+
+**Types**: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `data`, `perf`
+
+**Examples**:
+```bash
+feat(features): add RSI technical indicator
+fix(providers): handle missing quarterly data gracefully
+refactor(validation): extract common validation logic
+docs(strategies): update earnings momentum documentation
+test(providers): add unit tests for price provider
+data(universe): expand stock universe to 50 symbols
+```
+
+### What to Commit
+
+**✅ Always Commit**:
+- Source code changes
+- Tests for those changes
+- Documentation updates
+- Configuration changes (no secrets!)
+
+**❌ Never Commit**:
+- `.env` files or secrets
+- `__pycache__/` or `.pyc` files
+- Virtual environments (`.venv/`)
+- Large data files (`.parquet` files >1MB)
+- API keys, passwords, tokens
+- Personal notes (unless for team)
+
+**Notebooks**:
+- Clear output before committing (clean diffs)
+- Use: `jupyter nbconvert --clear-output --inplace notebook.ipynb`
+
+### Claude's Workflow
+
+**Before Every Commit**:
+1. Show `git status` and explain changes
+2. Show proposed commit message
+3. Highlight any concerns (large files, secrets, etc.)
+4. **Wait for your approval** before executing
+
+**Commit Process**:
+```bash
+# Review changes
+git status
+git diff --staged
+
+# Commit with conventional format
+git commit -m "type(scope): description"
+
+# Push to GitHub
+git push origin main
+```
+
+### Pre-Commit Checklist
+
+Before committing, verify:
+- [ ] No debug `print()` statements (unless intentional)
+- [ ] No `import pdb` or breakpoints
+- [ ] No secrets or API keys in diff
+- [ ] All staged files are intentional
+- [ ] Tests pass (when we have them)
+- [ ] Code is in working state
+
+### File Reference
+- Full workflow: [GIT_BEST_PRACTICES.md](GIT_BEST_PRACTICES.md)
+- Emergency procedures in GIT_BEST_PRACTICES.md section 10
