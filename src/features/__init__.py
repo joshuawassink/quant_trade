@@ -12,7 +12,11 @@ Modules:
 """
 
 from .technical import TechnicalFeatures
+from .fundamental import FundamentalFeatures
+from .sector import SectorFeatures
 
 __all__ = [
     'TechnicalFeatures',
+    'FundamentalFeatures',
+    'SectorFeatures',
 ]
