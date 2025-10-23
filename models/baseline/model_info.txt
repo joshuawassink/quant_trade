@@ -1,0 +1,12 @@
+BASELINE RIDGE REGRESSION MODEL
+==================================================
+
+Model type: Ridge Regression
+Alpha (L2 regularization): 1.0
+Features: 91
+Target: 30-day market-relative returns
+
+Feature categories:
+  - Technical indicators
+  - Fundamental metrics
+  - Sector/market features
