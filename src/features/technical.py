@@ -38,7 +38,7 @@ class TechnicalFeatures:
     def compute_all(
         self,
         df: pl.DataFrame,
-        horizons: list[int] = [1, 5, 10, 20, 60],
+        horizons: list[int] = [5, 10, 20, 60],
     ) -> pl.DataFrame:
         """
         Compute all technical features.

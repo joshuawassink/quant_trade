@@ -178,6 +178,11 @@ class YFinanceMarketProvider(DataProvider):
         # Convert to Polars
         df = pl.from_pandas(combined)
 
+        # Cast date to pl.Date (daily data doesn't need time component)
+        df = df.with_columns([
+            pl.col('date').cast(pl.Date)
+        ])
+
         # Validate
         if not self.validate(df):
             logger.error("Market data validation failed")

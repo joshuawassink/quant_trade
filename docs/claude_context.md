@@ -122,14 +122,81 @@ Three non-traditional strategies documented and ready for manual testing:
 
 ## Important Files to Review Periodically
 
-### [TODO.md](TODO.md) - Project Task Tracker
-**IMPORTANT**: Review this file regularly to track:
-- Future action items (missing data strategy, automated pipelines, etc.)
-- Design decisions that need to be made
-- Implementation tasks by priority
-- Items we've deferred but shouldn't forget
+### Core Documentation Map
 
-**Review frequency**: Weekly during active development, monthly during maintenance
+**Project Management:**
+- [../TODO.md](../TODO.md) - Active task tracker (review weekly)
+- [../README.md](../README.md) - Project overview
+- [../QUICKSTART.md](../QUICKSTART.md) - Getting started guide
+
+**Development Standards:**
+- [development/git_workflow.md](development/git_workflow.md) - Git best practices and commit conventions
+- [development/data_conventions.md](development/data_conventions.md) - **CRITICAL** Data formatting, naming, type standards
+  - Symbol formatting (uppercase)
+  - Date handling (datetime[ns], timezone-naive, truncated)
+  - Column naming (snake_case with clear suffixes)
+  - Null handling, winsorization, schema validation
+  - **Read this before any data work!**
+
+**Architecture & Design:**
+- [architecture/regression_framework_spec.md](architecture/regression_framework_spec.md) - ML framework specification
+- [architecture/feature_summary.md](architecture/feature_summary.md) - Feature categories and targets
+- [architecture/modular_architecture.md](architecture/modular_architecture.md) - System design
+- [architecture/data_acquisition_guide.md](architecture/data_acquisition_guide.md) - Data source guide
+
+**Strategy Documentation:**
+- [strategies/README.md](strategies/README.md) - Strategy index
+- [strategies/earnings_momentum_1m.md](strategies/earnings_momentum_1m.md) - Earnings-based strategy
+- [strategies/insider_cluster_1m.md](strategies/insider_cluster_1m.md) - Insider trading clusters
+- [strategies/github_activity_1m.md](strategies/github_activity_1m.md) - Developer activity signals
+
+**Reports & Evaluations:**
+- [reports/feature_evaluation_2025-10-23.md](reports/feature_evaluation_2025-10-23.md) - Latest feature evaluation
+- [reports/codebase_review_2025-10-23.md](reports/codebase_review_2025-10-23.md) - Latest codebase analysis
+
+---
+
+## Recent Changes & Important Findings (2025-10-23)
+
+### Feature Engineering Pipeline Complete ✓
+**Status**: 111 features implemented across 3 modules
+- **Technical features** (33): Returns, volatility, volume, RSI, MACD, moving averages
+- **Fundamental features** (22): QoQ/YoY changes, trend indicators, financial ratios
+- **Sector/Market features** (56): Market-relative returns, VIX regime, sector ETF tracking
+
+**Key Files:**
+- [src/features/technical.py](../src/features/technical.py)
+- [src/features/fundamental.py](../src/features/fundamental.py)
+- [src/features/sector.py](../src/features/sector.py)
+- [scripts/evaluate_features.py](../scripts/evaluate_features.py)
+
+### Critical Bug Fixed: Date Join Mismatch
+**Problem**: Market data (VIX, SPY, ETFs) had different hour timestamps than stock data
+- VIX: `2025-10-22 01:00:00`
+- Stocks: `2025-10-22 00:00:00`
+- Result: 100% null VIX features
+
+**Solution**: Truncate all dates to day before joining (`.dt.truncate('1d')`)
+**Impact**: All market joins now working correctly
+**Documentation**: See [development/data_conventions.md](development/data_conventions.md) Section 2
+
+### Data Conventions Established
+**Purpose**: Prevent subtle bugs like the date join issue above
+**Key conventions:**
+- Symbols: Always UPPERCASE
+- Dates: datetime[ns], timezone-naive, truncated to day
+- Columns: snake_case with clear suffixes (e.g., `return_20d_vs_market`)
+- Booleans: Store as Int8 (0/1) for null handling
+- See full conventions: [development/data_conventions.md](development/data_conventions.md)
+
+### Documentation Reorganized
+**Changes**: Moved detailed docs from root to `docs/` subdirectories
+- `claude.md` → `docs/claude_context.md`
+- `GIT_BEST_PRACTICES.md` → `docs/development/git_workflow.md`
+- `DATA_CONVENTIONS.md` → `docs/development/data_conventions.md`
+- Reports → `docs/reports/` (with dates in filenames)
+
+**Root directory now contains only**: README, QUICKSTART, TODO
 
 ---
 
@@ -222,5 +289,6 @@ Before committing, verify:
 - [ ] Code is in working state
 
 ### File Reference
-- Full workflow: [GIT_BEST_PRACTICES.md](GIT_BEST_PRACTICES.md)
-- Emergency procedures in GIT_BEST_PRACTICES.md section 10
+- Full workflow: [docs/development/git_workflow.md](development/git_workflow.md)
+- Emergency procedures in git_workflow.md section 10
+- Data conventions: [docs/development/data_conventions.md](development/data_conventions.md)

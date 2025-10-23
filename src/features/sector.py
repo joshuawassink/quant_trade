@@ -69,9 +69,9 @@ class SectorFeatures:
         Returns:
             Stock dataframe with sector/market features added
         """
-        # Normalize market_df dates (remove timezone and cast to nanoseconds)
+        # Ensure dates are pl.Date type for consistent joins
         market_df = market_df.with_columns([
-            pl.col('date').dt.replace_time_zone(None).cast(pl.Datetime('ns'))
+            pl.col('date').cast(pl.Date)
         ])
 
         # Add sector assignments
@@ -121,7 +121,7 @@ class SectorFeatures:
         spy_df = market_df.filter(pl.col('symbol') == 'SPY').select(['date', 'close'])
         spy_df = spy_df.rename({'close': 'spy_close'})
 
-        # Join SPY to stock data (timezone already normalized in compute_all)
+        # Join SPY to stock data
         stock_df = stock_df.join(spy_df, on='date', how='left')
 
         # Compute SPY returns for each horizon
@@ -310,7 +310,7 @@ if __name__ == "__main__":
     # Show sample
     print(f"\nSample (AAPL recent dates):")
     sample_cols = [
-        'symbol', 'date', 'sector', 'return_20d_vs_market',
+        'symbol', 'date', 'sector', 'spy_return_20d',
         'market_trend_bullish', 'vix_level', 'vix_regime'
     ]
     sample = features_df.filter(pl.col('symbol') == 'AAPL').select(sample_cols).tail(5)

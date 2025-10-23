@@ -184,6 +184,11 @@ class YFinancePriceProvider(DataProvider):
         # Convert to Polars (much faster for subsequent operations)
         df_polars = pl.from_pandas(df_long)
 
+        # Cast date to pl.Date (daily data doesn't need time component)
+        df_polars = df_polars.with_columns([
+            pl.col('date').cast(pl.Date)
+        ])
+
         return df_polars
 
     def validate(self, df: pl.DataFrame) -> bool:
