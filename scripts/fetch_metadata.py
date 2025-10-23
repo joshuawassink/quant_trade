@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import polars as pl
 from src.data.providers.yfinance_metadata_provider import YFinanceMetadataProvider
+from src.config.universe import get_universe
 from loguru import logger
 
 # Configure logging
@@ -23,17 +24,8 @@ logger.add("logs/fetch_metadata.log", rotation="10 MB")
 def main():
     """Fetch metadata for universe"""
 
-    # Use same universe as price data
-    universe = [
-        # Large cap tech
-        "AAPL", "MSFT", "GOOGL", "META", "NVDA",
-        # Large cap other sectors
-        "JPM", "JNJ", "PG", "XOM", "WMT",
-        # Mid cap
-        "SNAP", "DDOG", "MDB", "CRWD", "NET",
-        # Different sectors
-        "BA", "DIS", "NKE", "TSLA", "NFLX",
-    ]
+    # Use standardized universe configuration
+    universe = get_universe('sample')
 
     logger.info(f"Fetching metadata for {len(universe)} stocks")
 

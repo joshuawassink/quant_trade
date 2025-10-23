@@ -12,6 +12,7 @@ from datetime import datetime, timedelta
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.data.providers.yfinance_provider import YFinancePriceProvider
+from src.config.universe import get_universe
 from loguru import logger
 
 # Configure logging
@@ -21,18 +22,8 @@ logger.add("logs/fetch_sample_data.log", rotation="10 MB")
 def main():
     """Fetch sample data for testing"""
 
-    # Small but diverse universe for testing
-    # Include different sectors, market caps, and characteristics
-    universe = [
-        # Large cap tech
-        "AAPL", "MSFT", "GOOGL", "META", "NVDA",
-        # Large cap other sectors
-        "JPM", "JNJ", "PG", "XOM", "WMT",
-        # Mid cap
-        "SNAP", "DDOG", "MDB", "CRWD", "NET",
-        # Different sectors
-        "BA", "DIS", "NKE", "TSLA", "NFLX",
-    ]
+    # Use standardized universe configuration
+    universe = get_universe('sample')
 
     logger.info(f"Fetching data for {len(universe)} stocks")
 
