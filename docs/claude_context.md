@@ -125,7 +125,8 @@ Three non-traditional strategies documented and ready for manual testing:
 ### Core Documentation Map
 
 **Project Management:**
-- [../TODO.md](../TODO.md) - Active task tracker (review weekly)
+- [../TODO_NEXT_SESSION.md](../TODO_NEXT_SESSION.md) - **START HERE** - Next session priorities & context
+- [../TODO.md](../TODO.md) - Long-term task tracker (review weekly)
 - [../README.md](../README.md) - Project overview
 - [../QUICKSTART.md](../QUICKSTART.md) - Getting started guide
 
