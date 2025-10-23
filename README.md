@@ -58,8 +58,25 @@ uv pip install -e ".[dev]"
 ```
 
 ### Quick Start
-```python
-# Example coming soon
+
+#### Interactive Data Exploration
+```bash
+# Start Jupyter Lab
+./start_jupyter.sh
+
+# Or manually:
+source .venv/bin/activate
+cd notebooks
+jupyter lab
+```
+
+Open [notebooks/01_data_exploration.ipynb](notebooks/01_data_exploration.ipynb) to explore the collected data interactively.
+
+#### Fetch Sample Data
+```bash
+# Collect 3 years of price data for sample universe
+source .venv/bin/activate
+python scripts/fetch_sample_data.py
 ```
 
 ### Why uv?

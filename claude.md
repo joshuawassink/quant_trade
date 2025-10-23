@@ -3,6 +3,14 @@
 ## Project Overview
 This is an algorithmic trading framework designed for researching, backtesting, and executing non-traditional trading strategies. The focus is on manual validation and systematic testing of novel approaches.
 
+### Current Focus: 1-Month Holding Period Strategies
+The framework currently prioritizes **fixed 1-month holding period strategies** with these characteristics:
+- **Long-only positions** (stocks or call options)
+- **No short selling** (avoid unlimited risk)
+- **Monthly rebalancing** (enter on Day 1, exit on Day 30)
+- **Target returns**: 3-8% per month with manageable risk
+- **Manual validation first** before any coding/automation
+
 ## Architecture Philosophy
 - **Modular Design**: Each component (data ingestion, strategy logic, execution, backtesting) should be independent
 - **Strategy-First**: Framework validates strategies manually before automation
@@ -81,5 +89,44 @@ These are unconventional approaches to explore:
 4. **Fail Fast**: Catch errors early with assertions and validation
 5. **Stay Organized**: Keep strategies, data, and analysis separate
 
+## Priority 1-Month Strategies
+
+Three non-traditional strategies documented and ready for manual testing:
+
+1. **Earnings Momentum** ([docs/strategies/earnings_momentum_1m.md](docs/strategies/earnings_momentum_1m.md))
+   - Buy stocks that beat earnings by 10%+ with 3-8% price reaction
+   - Hold for 30 days to capture post-earnings drift
+   - Expected: 5-8% monthly returns, 60-70% win rate
+   - Priority: HIGH (well-studied, clear signals)
+
+2. **Insider Clustering** ([docs/strategies/insider_cluster_1m.md](docs/strategies/insider_cluster_1m.md))
+   - Buy when 3+ insiders purchase $50K+ within 10 days
+   - Signals information asymmetry and confidence
+   - Expected: 4-8% monthly returns, 60-70% win rate
+   - Priority: HIGH (strong academic support, unique angle on clusters)
+
+3. **GitHub Activity** ([docs/strategies/github_activity_1m.md](docs/strategies/github_activity_1m.md))
+   - Buy tech stocks when commit activity accelerates 150%+
+   - Leading indicator for product development
+   - Expected: 6%+ monthly returns, 55%+ win rate
+   - Priority: MEDIUM-HIGH (novel, less competition, tech-focused)
+
 ## Current Phase
-Initial setup - establishing project structure and documentation framework.
+**Phase 1**: Data pipeline development for ML-based momentum strategy
+- Building yfinance data providers (price, metadata, sector/market)
+- Implementing feature computation pipeline (technical, metadata, sector/market)
+- Creating modular architecture for reusability
+- Target: 70+ features, 3-5 years historical data
+
+**Next**: Feature engineering → Model training → Backtesting
+
+## Important Files to Review Periodically
+
+### [TODO.md](TODO.md) - Project Task Tracker
+**IMPORTANT**: Review this file regularly to track:
+- Future action items (missing data strategy, automated pipelines, etc.)
+- Design decisions that need to be made
+- Implementation tasks by priority
+- Items we've deferred but shouldn't forget
+
+**Review frequency**: Weekly during active development, monthly during maintenance
