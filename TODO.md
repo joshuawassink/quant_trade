@@ -50,6 +50,23 @@ Track future action items, design decisions, and implementation tasks that need 
   - Save best parameters per model type
   - **Priority**: After baseline models working
 
+- [ ] **Use rank-ordering as loss metric for model training**
+  - Current: Models optimize for prediction accuracy (MSE/MAE)
+  - Better: Optimize for correct rank ordering of stocks
+  - Benefit: In practice, we pick top K stocks regardless of exact return predictions
+  - Implementation: Use ranking loss functions (e.g., LambdaRank, ListNet, pairwise ranking)
+  - **Context**: Spearman correlation shows ranking is more important than exact values
+  - **Priority**: After baseline models proven, before production
+
+- [ ] **Implement market regime prediction model**
+  - Parallel prediction of overall market movement (SPY returns)
+  - Use for position sizing and strategy selection:
+    - Strong positive: Aggressive (call options, high leverage)
+    - Mixed/neutral: Focus on selection quality (long equity, maximize %-positive)
+    - Strong negative: Defensive (cash, inverse ETFs)
+  - **Context**: Strategy should adapt to market conditions
+  - **Priority**: After stock selection model working
+
 ### Strategy Implementation
 
 - [ ] **Manual validation of earnings momentum strategy**

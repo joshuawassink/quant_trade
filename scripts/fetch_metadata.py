@@ -13,8 +13,8 @@ from datetime import datetime
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import polars as pl
-from src.data.providers.yfinance_metadata_provider import YFinanceMetadataProvider
-from src.config.universe import get_universe
+from src.shared.data.providers.yfinance_metadata_provider import YFinanceMetadataProvider
+from src.shared.config.universe import get_universe
 from loguru import logger
 
 # Configure logging
@@ -25,7 +25,10 @@ def main():
     """Fetch metadata for universe"""
 
     # Use standardized universe configuration
-    universe = get_universe('sample')
+    # Change to 'production' to fetch for full 377-stock universe
+    universe_name = 'production'  # or 'sample' for testing
+    universe = get_universe(universe_name)
+    logger.info(f"Using '{universe_name}' universe")
 
     logger.info(f"Fetching metadata for {len(universe)} stocks")
 

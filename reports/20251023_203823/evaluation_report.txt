@@ -1,0 +1,100 @@
+================================================================================
+MODEL EVALUATION REPORT
+================================================================================
+Generated: 2025-10-23 20:38:25
+Model: models/baseline
+
+================================================================================
+DATASET
+================================================================================
+Total samples:        252,132
+Date range:          2023-01-04 to 2025-09-11
+Unique symbols:      376
+Features used:       81
+
+================================================================================
+PERFORMANCE METRICS
+================================================================================
+R² Score:            0.0652
+RMSE:                0.1232 (12.32%)
+MAE:                 0.0865 (8.65%)
+MAPE:                160615.51%
+Directional Acc:     56.98%
+
+================================================================================
+ERROR STATISTICS
+================================================================================
+Mean Error (Bias):   -0.0000
+Error Std Dev:       0.1232
+Error Skewness:      -1.2210
+Error Kurtosis:      13.0974
+
+================================================================================
+PREDICTION STATISTICS
+================================================================================
+Predicted Mean:      0.0189
+Predicted Std:       0.0324
+Actual Mean:         0.0189
+Actual Std:          0.1275
+
+================================================================================
+TEMPORAL PERFORMANCE (Yearly)
+================================================================================
+2023: MAE=0.0866, Bias=0.0024, n=93,624
+2024: MAE=0.0836, Bias=-0.0068, n=94,752
+2025: MAE=0.0906, Bias=0.0065, n=63,756
+
+================================================================================
+SECTOR PERFORMANCE
+================================================================================
+Utilities                     : MAE=0.0550, Bias=-0.0050, n=13,408
+Real Estate                   : MAE=0.0574, Bias=0.0008, n=12,068
+Consumer Defensive            : MAE=0.0593, Bias=0.0082, n=14,752
+Industrials                   : MAE=0.0643, Bias=-0.0063, n=20,774
+Energy                        : MAE=0.0750, Bias=0.0078, n=18,114
+Basic Materials               : MAE=0.0778, Bias=0.0155, n=12,734
+Financial Services            : MAE=0.0815, Bias=-0.0122, n=30,844
+Healthcare                    : MAE=0.0882, Bias=0.0153, n=33,548
+Communication Services        : MAE=0.0985, Bias=-0.0073, n=17,444
+Technology                    : MAE=0.1076, Bias=-0.0087, n=42,916
+Consumer Cyclical             : MAE=0.1128, Bias=0.0026, n=35,530
+
+================================================================================
+TOP 20 FEATURES (by |coefficient|)
+================================================================================
+total_assets                            : -0.7273
+total_liabilities                       : +0.4486
+stockholders_equity                     : +0.2824
+current_liabilities                     : +0.1188
+return_20d                              : +0.0871
+return_20d_vs_market                    : -0.0825
+current_assets                          : -0.0562
+total_revenue                           : -0.0494
+ebitda                                  : +0.0472
+ebitda_margin                           : -0.0463
+gross_profit                            : -0.0425
+operating_margin                        : +0.0392
+net_margin                              : +0.0355
+sma_20                                  : +0.0255
+operating_income                        : -0.0218
+spy_return_20d                          : -0.0207
+return_5d_vs_market                     : -0.0203
+fcf_margin                              : -0.0189
+vix_percentile                          : +0.0183
+sma_50                                  : -0.0181
+
+================================================================================
+INSIGHTS & RECOMMENDATIONS
+================================================================================
+• Low R² (0.065) typical for stock prediction - consider ensemble methods
+• Model is well-calibrated with minimal bias
+• Error distribution is left-skewed - consider robust loss functions
+• Heavy-tailed errors detected - consider outlier handling
+• Strong directional accuracy (57.0%) - suitable for long/short strategies
+• Large sector performance variation - consider sector-specific models
+•   Best: Utilities (MAE=0.0550)
+•   Worst: Consumer Cyclical (MAE=0.1128)
+
+================================================================================
+END OF REPORT
+================================================================================

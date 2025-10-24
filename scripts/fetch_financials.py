@@ -20,8 +20,8 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 import polars as pl
-from src.data.providers.yfinance_financials_provider import YFinanceFinancialsProvider
-from src.config.universe import get_universe
+from src.shared.data.providers.yfinance_financials_provider import YFinanceFinancialsProvider
+from src.shared.config.universe import get_universe
 
 # Configure logging
 logger.remove()
@@ -32,7 +32,10 @@ def main():
     """Fetch quarterly financials for the stock universe."""
 
     # Use standardized universe configuration
-    universe = get_universe('sample')
+    # Change to 'production' to fetch for full 377-stock universe
+    universe_name = 'production'  # or 'sample' for testing
+    universe = get_universe(universe_name)
+    logger.info(f"Using '{universe_name}' universe")
 
     logger.info(f"Fetching quarterly financials for {len(universe)} stocks")
 

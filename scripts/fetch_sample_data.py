@@ -11,8 +11,8 @@ from datetime import datetime, timedelta
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src.data.providers.yfinance_provider import YFinancePriceProvider
-from src.config.universe import get_universe
+from src.shared.data.providers.yfinance_provider import YFinancePriceProvider
+from src.shared.config.universe import get_universe
 from loguru import logger
 
 # Configure logging

@@ -20,7 +20,7 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 import polars as pl
-from src.data.providers.yfinance_market_provider import YFinanceMarketProvider
+from src.shared.data.providers.yfinance_market_provider import YFinanceMarketProvider
 
 # Configure logging
 logger.remove()

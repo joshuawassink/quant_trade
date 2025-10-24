@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.quant.daily_update</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/jwassink/repos/quant_trade/.venv/bin/python</string>
+        <string>/Users/jwassink/repos/quant_trade/scripts/update_daily_data.py</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/jwassink/repos/quant_trade</string>
+
+    <key>StandardOutPath</key>
+    <string>/Users/jwassink/repos/quant_trade/logs/daily_update_stdout.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/jwassink/repos/quant_trade/logs/daily_update_stderr.log</string>
+
+    <!-- Run at 6:00 PM (18:00) every day -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>18</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <!-- Run even when system is sleeping (wake to run) -->
+    <key>RunAtLoad</key>
+    <false/>
+
+    <!-- Retry if it fails -->
+    <key>SuccessfulExit</key>
+    <true/>
+
+    <!-- Don't throttle -->
+    <key>ThrottleInterval</key>
+    <integer>0</integer>
+</dict>
+</plist>

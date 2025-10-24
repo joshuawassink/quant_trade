@@ -1,0 +1,14 @@
+QUANTILE REGRESSION MODEL
+==================================================
+
+Model type: Quantile Regression
+Quantile: 0.6 (60th percentile)
+Alpha (L1 regularization): 1.0
+Features: 83
+Target: 30-day market-relative returns
+
+Advantage over Ridge:
+  - Predicts 60th percentile instead of mean
+  - Better captures upside moves
+  - Addresses negative error skew
+  - Robust to outliers
