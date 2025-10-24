@@ -49,6 +49,17 @@ Predictions saved as parquet files (not just in-memory). This allows evaluation 
 - **Location:** `data/predictions/`
 - **Usage:** Step 7 generates, Step 8 evaluates
 
+### 7. **Ranking-Aware Models**
+Custom models optimized for rank-ordering accuracy rather than absolute prediction accuracy. Critical insight: in portfolio selection, correctly ranking stocks matters more than predicting exact returns.
+
+- **Location:** `src/shared/models/`
+- **Key modules:**
+  - `ranking_metrics.py` - Standalone ranking metrics (rank MAE, rank MSE, Spearman, top-K overlap)
+  - `ranking_sgd.py` - SGD with custom ranking loss
+  - `ranking_xgb.py` - XGBoost with ranking objectives
+- **Use case:** When selecting top K stocks for a portfolio, getting the relative ordering correct is more valuable than precise return predictions
+- **Evaluation:** Combines traditional metrics (MSE, R²) with ranking metrics (Spearman correlation, precision@K)
+
 ## Directory Structure
 
 ```
@@ -123,6 +134,26 @@ quant_trade/
 |------|---------|
 | `universe.py` | Defines stock universe (e.g., S&P 500 tickers) |
 | `settings.py` | Model hyperparameters, paths, constants |
+
+### Ranking Models (`src/shared/models/`)
+
+| File | Purpose | Key Functionality |
+|------|---------|-------------------|
+| `ranking_metrics.py` | Ranking evaluation metrics | `rank_mae()`, `rank_mse()`, `top_k_overlap()`, `decile_spread()` |
+| `ranking_sgd.py` | SGD with ranking loss | `RankingSGDRegressor` - Combines MSE + rank MSE loss |
+| `ranking_xgb.py` | XGBoost with ranking | `RankingXGBRegressor`, `LambdaRankXGBRegressor` |
+
+**Key Ranking Metrics:**
+- **rank_mae**: Mean absolute rank error (e.g., 1.8 = avg 2 positions off)
+- **rank_mse**: Mean squared rank error (for optimization)
+- **spearman**: Rank correlation (-1 to 1, higher = better ranking)
+- **top_k_overlap**: Fraction of top K correctly identified (0 to 1)
+- **decile_spread**: Top decile return - bottom decile return (signal strength)
+
+**When to use:**
+- Standard models (Ridge, XGBoost): When absolute predictions matter
+- Ranking models: When selecting top K stocks for equal-weight portfolio
+- Hybrid approach: Combine MSE + ranking loss for balanced performance
 
 ## Data Flow
 

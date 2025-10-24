@@ -94,6 +94,29 @@ from src.shared.config.settings import MODEL_PARAMS
 | **Add new workflow** | Copy wf_30d_returns_v2.py | src/workflows/<new_workflow>/ |
 | **Fetch fresh data** | scripts/fetch_production_data.py | src/shared/data/*.py |
 | **Evaluate model** | src/shared/pipeline/model_evaluation_v2.py | returns_analysis.py |
+| **Use ranking models** | src/shared/models/ranking_*.py | ranking_metrics.py, ranking_sgd.py, ranking_xgb.py |
+| **Add ranking metrics** | src/shared/models/ranking_metrics.py | model_evaluation_v2.py |
+
+### Key Context: Ranking vs Regression
+
+**Portfolio Selection Insight:**
+When building portfolios, we select the top K stocks. What matters is:
+- **Ranking accuracy** (get the top 10 correct) > absolute prediction accuracy
+- A model with Spearman=0.85 and MSE=0.10 beats Spearman=0.60 and MSE=0.05
+
+**When to use what:**
+- **Standard models** (Ridge, XGBoost with MSE): When absolute predictions matter (e.g., position sizing)
+- **Ranking models** (RankingSGD, RankingXGB): When selecting top K for equal-weight portfolio
+- **Hybrid**: Combine MSE + rank loss (rank_weight=0.5) for balanced performance
+
+**Ranking metrics available:**
+- `rank_mae(y_true, y_pred)` - Mean absolute rank error (intuitive: "off by X positions")
+- `rank_mse(y_true, y_pred)` - For optimization (smooth gradients)
+- `top_k_overlap(y_true, y_pred, k=10)` - Fraction of top K correctly identified
+- `decile_spread(y_true, y_pred)` - Signal strength (top decile - bottom decile)
+- `spearman_loss(y_true, y_pred)` - 1 - Spearman correlation
+
+See: `src/shared/models/ranking_metrics.py` for full API
 
 ### File Dependency Quick Reference
 
